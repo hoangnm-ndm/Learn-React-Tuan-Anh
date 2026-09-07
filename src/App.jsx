@@ -1,18 +1,17 @@
-import { Route, Router, Routes } from "react-router";
+import { Route, Routes } from "react-router";
 import "./App.css";
-import HomePage from "./pages/HomePage";
-import ProductPage from "./pages/ProductPage";
-import ContactPage from "./pages/ContactPage";
-import AboutPage from "./pages/AboutPage";
-import NotFoundPage from "./pages/NotFoundPage";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import ProductDetailPage from "./pages/ProductDetailPage";
 import Layout from "./components/Layout";
-import ProtectedRoute from "./ProtectedRoute";
+import AboutPage from "./pages/AboutPage";
 import DashBoardPage from "./pages/admin/DashBoardPage";
-import RegisterPage from "./pages/RegisterPage";
+import ContactPage from "./pages/ContactPage";
+import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import ProductDetailPage from "./pages/ProductDetailPage";
+import ProductPage from "./pages/ProductPage";
+import RegisterPage from "./pages/RegisterPage";
+import ProtectedRoute from "./ProtectedRoute";
+import ProductManagement from "./pages/admin/ProductManagement";
 
 const App = () => {
   return (
@@ -30,6 +29,7 @@ const App = () => {
         {/* Admin */}
         <Route path="/admin" element={<ProtectedRoute />}>
           <Route index element={<DashBoardPage />} />
+          <Route path="products" element={<ProductManagement />} />
         </Route>
 
         {/* Empty layout */}

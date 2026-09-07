@@ -4,24 +4,38 @@
  */
 
 import { useEffect, useState } from "react";
-import { getProducts } from "../api/productApi";
+import { createProduct, getProducts } from "../api/productApi";
 
 export const useProducts = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const fetchProducts = async () => {
+    try {
+      setLoading(true);
+      const data = await getProducts();
+      setData(data);
+    } catch (error) {
+      setError(`Co loi xay ra: ${JSON.stringify(error)}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    (async () => {
-      try {
-        setLoading(true);
-        const res = await getProducts();
-        setData(res.products);
-      } catch (error) {
-        setError(`Co loi xay ra: ${JSON.stringify(error)}`);
-      } finally {
-        setLoading(false);
-      }
-    })();
+    fetchProducts();
   }, []);
+
+  const addProduct = async (body) => {
+    const data = await createProduct(body);
+    console.log(data);
+    fetchProducts();
+  };
+
+  // const updateProduct = async (body) => {
+  //   const data = await updateProduct(body);
+  //   fetchProducts();
+  // };
+
   return { data, loading, error };
 };
